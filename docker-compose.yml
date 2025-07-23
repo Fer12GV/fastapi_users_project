@@ -5,6 +5,7 @@ services:
     build: .
     ports:
       - "${WEB_PORT:-8000}:8000"
+      - "5678:5678"  # Debug port for debugpy
     environment:
       - ENVIRONMENT=${ENVIRONMENT:-development}
       - DATABASE_URL=postgresql+asyncpg://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
@@ -22,8 +23,8 @@ services:
     command: >
       sh -c "
         if [ \"$$ENVIRONMENT\" = \"development\" ]; then
-          echo 'Starting in DEVELOPMENT mode with Uvicorn (hot reload)';
-          uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --log-level debug
+          echo 'Starting in DEVELOPMENT mode with Uvicorn + debugpy (hot reload)';
+          python -m debugpy --listen 0.0.0.0:5678 --wait-for-client -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --log-level debug
         else
           echo 'Starting in PRODUCTION mode with Gunicorn + Uvicorn workers';
           gunicorn app.main:app -c gunicorn_conf.py
