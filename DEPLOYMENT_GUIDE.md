@@ -117,10 +117,14 @@ git clone <your-repo-url>
 cd fastapi_users_project
 
 # 2. Copy Docker environment
+# Option 1:
 cp .env.docker .env
 
 # 3. Start with Docker Compose
 docker-compose up --build
+
+# Option 2:
+docker-compose --env-file .env.docker up --build
 
 # 4. Access the application
 # API: http://localhost:8000

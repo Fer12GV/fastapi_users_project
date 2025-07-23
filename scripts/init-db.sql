@@ -32,4 +32,4 @@ ALTER ROLE fastapi_app_user SET search_path = fastapi_users, public;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- Log the initialization
-INSERT INTO pg_catalog.pg_stat_statements_info (dealloc) VALUES (0) ON CONFLICT DO NOTHING;
+-- INSERT INTO pg_catalog.pg_stat_statements_info (dealloc) VALUES (0) ON CONFLICT DO NOTHING;
